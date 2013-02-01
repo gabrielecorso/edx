@@ -6,8 +6,17 @@ class MoviesController < ApplicationController
     # will render app/views/movies/show.<extension> by default
   end
 
+  def yellow?(sortBy,name,id)
+    haml_tag :th
+  end
+
+
   def index
-    @movies = Movie.all
+    # @movies = Movie.all
+    if params[:id] == nil
+	params[:id] = "rating"
+    end   
+    @movies = Movie.find(:all,:order => "#{params[:id]} DESC")
   end
 
   def new

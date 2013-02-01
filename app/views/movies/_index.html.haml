@@ -4,9 +4,9 @@
 %table#movies
   %thead
     %tr
-      -yellow?("title","Movie Title","title_header")
+      %th Movie Title
       %th Rating
-      -yellow?("release_date","Releases Date","release_date_header")
+      %th Releases Dates
       %th More Info
   %tbody
     - @movies.each do |movie|
