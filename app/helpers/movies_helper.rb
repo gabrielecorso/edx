@@ -5,11 +5,11 @@ module MoviesHelper
   end
   def yellow?(sortBy,name,id)
     if params[:id] == sortBy then 
-      haml_tag :th, id: sortBy, class: "#{if params[:id] == sortBy then 'hilite' end}" do
-        haml_concat link_to name, :id => id, :class => @hilite
+      haml_tag :th, id: sortBy, class: 'hilite' do
+        haml_concat link_to name, "/movies?id=" + sortBy, :id => id, :class => @hilite
       end
     else
-      haml_tag :th, id: sortBy, class: "#{if params[:id] == sortBy then 'hilite' end}" do
+      haml_tag :th, id: sortBy,  do
         haml_concat link_to name, :id => sortBy, :class => @hilite
       end
     end
