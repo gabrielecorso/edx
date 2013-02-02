@@ -4,11 +4,16 @@ module MoviesHelper
     count.odd? ?  "odd" :  "even"
   end
   def yellow?(sortBy,name,id)
-    haml_tag :th, id: sortBy, class: "#{if params[:id] == sortBy then 'hilite' end}" do
-      haml_concat link_to name, {:class => @hilite,:id => sortBy}
+    if params[:id] == sortBy then 
+      haml_tag :th, id: sortBy, class: "#{if params[:id] == sortBy then 'hilite' end}" do
+        haml_concat link_to name, :id => sortBy, :class => @hilite
+      end
+    else
+      haml_tag :th, id: sortBy, class: "#{if params[:id] == sortBy then 'hilite' end}" do
+        haml_concat link_to name, :id => sortBy, :class => @hilite
+      end
     end
   end
 
 end
-
 
