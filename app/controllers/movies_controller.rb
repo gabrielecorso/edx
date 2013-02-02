@@ -16,7 +16,7 @@ class MoviesController < ApplicationController
     if params[:id] == nil
 	params[:id] = "rating"
     end   
-    @movies = Movie.find(:all,:order => "#{params[:id]} DESC")
+    @movies = Movie.find(:all,:order => "#{params[:id]}")
   end
 
   def new
