@@ -10,7 +10,7 @@ module MoviesHelper
       end
     else
       haml_tag :th, id: sortBy,  do
-        haml_concat link_to name, :id => sortBy, :class => @hilite
+        haml_concat link_to name, "/movies?id=" + sortBy, :id => sortBy, :class => @hilite
       end
     end
   end
