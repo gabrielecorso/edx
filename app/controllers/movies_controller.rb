@@ -23,26 +23,25 @@ class MoviesController < ApplicationController
 
   def index
     #### first call: /movies ####
-    if params[:id] == nil and params[:ratings] == nil and session == nil
-       params[:id] = "rating"
-       parametros = Movie.allratingvalues
-    end
+    #if params[:id] == nil and params[:ratings] == nil and session == nil
+    #   parametros = Movie.allratingvalues
+    #   sortorder = "rating"
+    #end
     #### from show ####
-    if (params[:id] == nil) and (params[:ratings] == nil) and (session[:ratings] != nil) then
-    	#redirect_to movie_path(@movie)
+    if (params[:id] == nil) and (params[:ratings] == nil) and ((session[:ratings] != nil) or (session[:order] != nil))then
         session[:message] = "from show"
-        #link_extension(@movie,session[:ratings])
-        parametros = session[:ratings].each_key
-    end
-    #### no sort chosen ######
-    if params[:id] == nil
-    	params[:id] = "rating"
+        if session[:ratings] != nil then
+           parametros = session[:ratings].each_key
+        end
+        if session[:order] != nil then
+           sortorder = session[:order]
+        end
     end
     ###### call from sort: choose stored ratings otherwise 
     if (params[:ratings] != nil)
        parametros = params[:ratings].each_key
     end
-    #### copy params to session
+    #### copy params ratings to session
     if params[:ratings] != nil then
       session.delete(:ratings)
       session[:ratings] = {}
@@ -50,11 +49,26 @@ class MoviesController < ApplicationController
         session[:ratings].store(pr[0],pr[1])
       end
     end
+    if params[:id] != nil
+       sortorder = params[:id]
+       session[:order] = sortorder
+    end
+    if (params[:id] == nil) and (params[:ratings] == nil)
+       sortorder = session[:order]
+    end
     if parametros == nil
        parametros = Movie.allratingvalues.each
     end
-    #session[:message] = "por aqui"
-    @movies = Movie.find(:all,:conditions => ["rating IN (?)", parametros],:order => "#{params[:id]}")
+    if sortorder == nil
+       if (session[:order] != nil)
+         sortorder = session[:order]
+       else
+         sortorder = "rating"
+       end
+    end
+    session[:order] = sortorder
+    #@movies = Movie.find(:all,:conditions => ["rating IN (?)", parametros],:order => "#{params[:id]}")
+    @movies = Movie.find(:all,:conditions => ["rating IN (?)", parametros],:order => sortorder)
   end
 
   def link_extension(movie,parametros)
