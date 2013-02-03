@@ -48,21 +48,7 @@ module MoviesHelper
     end
   end
 
-  def link_extension(movie,parametros)
-    #ratings[G]=1&
-    string_parametros = ""
-    if parametros == nil then
-       string_parametros = ""
-    else
-       #string_parametros = print parametros 
-       # parametros es un hash
-       parametros.each_key  do |p|
-         string_parametros =  string_parametros + "&" + "ratings[" + p + "]=1"
-       end
-    end
-    session[:message] = string_parametros
-    redirect_to movie_path(movie + string_parametros)
-  end
+  
 
 
 
