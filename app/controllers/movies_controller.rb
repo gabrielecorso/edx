@@ -37,7 +37,7 @@ class MoviesController < ApplicationController
            sortorder = session[:order]
         end
     end
-    ###### call  from sort: choose stored ratings otherwise 
+    ###### call   from sort: choose stored ratings otherwise 
     if (params[:ratings] != nil)
        parametros = params[:ratings].each_key
     end
