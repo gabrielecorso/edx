@@ -16,13 +16,13 @@ module MoviesHelper
     end
   end
 
-  def button (rating)
-    if (params[:rating] != nil) and (params[:rating].has_key?(rating)) then
-      haml_concat ("= check_box_tag \"ratings\[1\]\" ")
-    else    
-      haml_concat ("= check_box_tag \"ratings\[\{1\}\]\" ")
-    end
-  end
+  #def button (rating)
+  #  if (params[:rating] != nil) and (params[:rating].has_key?(rating)) then
+  #    haml_concat ("= check_box_tag \"ratings\[1\]\" ")
+  #  else    
+  #    haml_concat ("= check_box_tag \"ratings\[\{1\}\]\" ")
+  #  end
+  #end
 
 
   def yellow_filter?(sortBy,name,id,parametros)
@@ -46,6 +46,22 @@ module MoviesHelper
         haml_concat link_to name, "/movies?id=" + sortBy + string_parametros, :id => id, :class => @hilite
       end
     end
+  end
+
+  def link_extension(movie,parametros)
+    #ratings[G]=1&
+    string_parametros = ""
+    if parametros == nil then
+       string_parametros = ""
+    else
+       #string_parametros = print parametros 
+       # parametros es un hash
+       parametros.each_key  do |p|
+         string_parametros =  string_parametros + "&" + "ratings[" + p + "]=1"
+       end
+    end
+    session[:message] = string_parametros
+    redirect_to movie_path(movie + string_parametros)
   end
 
 

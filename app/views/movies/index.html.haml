@@ -27,3 +27,10 @@
         %td= link_to "More about #{movie.title}", movie_path(movie)
 
 = link_to 'Add new movie', new_movie_path
+= "HOLA"
+= "session message"
+= session[:message]
+= "session ratings PG:"
+= session[:ratings].key("PG")
+
+
